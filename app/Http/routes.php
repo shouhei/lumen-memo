@@ -11,6 +11,17 @@
 |
 */
 
+use App\Http\Models\Post;
+
 $app->get('/', function() use ($app) {
-	return $app->welcome();
+    return $app->welcome();
+});
+
+$app->get('/posts',function() use($app){
+    return view('post/index',['posts'=>Post::all()]);
+});
+
+$app->post('/posts',function() use($app){
+    Post::create(Request::all());
+    return redirect('/posts');
 });
